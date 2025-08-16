@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swift Graphics — Premium Design Studio</title>
+  <meta name="description" content="Swift Graphics: catalogs, trend books, magazines, guide books, brochures, and carpet décor mockups." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #f7f9fc;            /* paper */
+      --bg2: #ffffff;            /* pure */
+      --ink: #0f172a;            /* text */
+      --muted: #5b6474;          /* secondary text */
+      --brand: #2563eb;          /* primary */
+      --brand-2: #06b6d4;        /* accent */
+      --ring: rgba(37,99,235,.35);
+      --card: #ffffff;
+      --border: #e8edf5;
+      --shadow: 0 10px 30px rgba(2,6,23,.06), 0 2px 6px rgba(2,6,23,.04);
+      --shadow-hover: 0 15px 45px rgba(2,6,23,.1), 0 4px 12px rgba(2,6,23,.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Reset & Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: 'Manrope', 'Space Grotesk', system-ui, -apple-system, 
+                 BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 
+                 Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(120deg, #eef2ff, #f0fdfa, #fff7ed, #eff6ff, #fdf4ff);
+      background-size: 300% 300%;
+      animation: gradientFlow 36s ease-in-out infinite;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 100%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html, body { animation: none; }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout Helpers */
+    .container {
+      width: min(1150px, 92%);
+      margin-inline: auto;
+    }
+
+    .grid {
+      display: grid;
+      gap: 28px;
+    }
+
+    .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    @media (max-width: 900px) {
+      .two, .three, .four { grid-template-columns: 1fr; }
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(10px);
+      background: color-mix(in oklab, #ffffff 85%, transparent);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(2,6,23,.01);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-family: Outfit, Inter, system-ui;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: conic-gradient(from 90deg at 50% 50%, var(--brand), var(--brand-2), #8b5cf6, var(--brand));
+      box-shadow: var(--shadow);
+      font-weight: 800;
+      letter-spacing: .5px;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      transform: rotate(5deg) scale(1.05);
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3),
+                  0 4px 8px rgba(6, 182, 212, 0.4);
+    }
+
+    .brand h1 {
+      font-size: 20px;
+      margin: 0;
+      letter-spacing: .4px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .menu a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      z-index: -1;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .menu a:hover, 
+    .menu a:focus {
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .menu a:hover::before,
+    .menu a:focus::before {
+      opacity: 1;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 110;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    /* CTA Button */
+    .cta {
+      background: var(--ink);
+      color: #fff !important;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                  0 1px 3px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      position: relative;
+      border: none;
+      font-weight: 600;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3),
+                  0 6px 12px rgba(15, 23, 42, 0.25);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 140px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff88;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1;
+      margin: 18px 0 16px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--muted);
+      max-width: 60ch;
+      margin-bottom: 24px;
+    }
+
+    .hero .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .btn.primary {
+      background: linear-gradient(120deg, var(--brand), var(--brand-2));
+      color: #fff;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .hero-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .masonry {
+      columns: 2;
+      column-gap: 18px;
+    }
+
+    .masonry img {
+      width: 100%;
+      margin: 0 0 18px;
+      border-radius: var(--radius-md);
+      display: block;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 900px) {
+      .masonry { columns: 1; }
+    }
+
+    /* Section Title */
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .section-title h3 {
+      font-family: Outfit;
+      font-size: clamp(28px, 3.2vw, 40px);
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card h4 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f2f6ff;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #3853a5;
+    }
+
+    /* Services grid */
+    .service-card .footer {
+      margin-top: 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* Portfolio */
+    .portfolio .item {
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .portfolio .item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .portfolio .item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio .item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Industries */
+    .industries .tag {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      font-weight: 600;
+    }
+
+    /* Process timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #c7d2fe, #bae6fd);
+    }
+
+    .step {
+      position: relative;
+      padding-left: 36px;
+      margin: 24px 0;
+    }
+
+    .dot {
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--brand), var(--brand-2));
+      box-shadow: var(--shadow);
+    }
+
+    /* Pricing */
+    .price {
+      font-size: 36px;
+      font-weight: 800;
+      font-family: Outfit;
+    }
+
+    /* FAQ */
+    details {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      padding-right: 24px;
+      position: relative;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+
+    details[open] summary::after {
+      content: "-";
+    }
+
+    details[open] {
+      background: #f8fafc;
+    }
+
+    details p {
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    /* Contact */
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    input, textarea, select {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      font: inherit;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--ring);
+      border-color: transparent;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0 40px;
+      color: var(--muted);
+      background: #f8fafc;
+    }
+
+    /* Scroll-to-top button */
+    #toTop {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 70;
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      background: #ffffffdd;
+      backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    #toTop.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    #toTop svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Utility Classes */
+    .muted { color: var(--muted); }
+    .hr { height: 1px; background: var(--border); margin: 16px 0; }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 8px; }
+    .mt-2 { margin-top: 16px; }
+    .mt-3 { margin-top: 24px; }
+    .mt-4 { margin-top: 32px; }
+    .mb-1 { margin-bottom: 8px; }
+    .mb-2 { margin-bottom: 16px; }
+    .mb-3 { margin-bottom: 24px; }
+    .mb-4 { margin-bottom: 32px; }
+
+    /* ---------- tiny helpers for long-page extras (added below) ---------- */
+    .note { font-size: 13px; color: var(--muted); }
+    .kpi { display: flex; align-items: center; gap: 12px; }
+    .kpi .num { font-family: Outfit; font-weight: 800; font-size: 32px; }
+    .list-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 700px) { .list-grid { grid-template-columns: 1fr; } }
+    .check { display: flex; align-items: flex-start; gap: 10px; }
+
+    /* Mobile Menu Styles */
+    @media (max-width: 768px) {
+      .menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: #fff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 24px 24px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        z-index: 100;
+      }
+
+      .menu.active {
+        right: 0;
+      }
+
+      .menu a {
+        width: 100%;
+        padding: 12px 16px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .menu-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero .actions {
+        flex-direction: column;
+      }
+
+      .hero .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    /* Luxury Infographic Section */
+    .luxury-section {
+      background: #0a0a0a;
+      color: #f5f5f5;
+      padding: 100px 0;
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .luxury-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.3;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.8) 0%, transparent 20%), 
+        radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.6) 0%, transparent 25%);
+    }
+
+    .luxury-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .luxury-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .luxury-header h3 {
+      font-size: 42px;
+      font-weight: 300;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+    }
+
+    .luxury-header h3 span {
+      background: linear-gradient(90deg, transparent 5%, #D4AF37 95%);
+      padding-right: 10px;
+    }
+
+    .luxury-header p {
+      font-size: 18px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 15px;
+      color: #D4AF37;
+    }
+
+    .luxury-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .luxury-card {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.3) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .luxury-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+    }
+
+    .luxury-icon {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #D4AF37 0%, #F9D423 100%);
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+
+    .luxury-card h4 {
+      font-size: 18px;
+      margin: 0 0 10px;
+      color: #D4AF37;
+    }
+
+    .luxury-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .luxury-cta {
+      text-align: center;
+      position: relative;
+    }
+
+    .luxury-cta p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 24px;
+      color: #D4AF37;
+      margin-bottom: 30px;
+    }
+
+    .luxury-btn {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #D4AF37 0%, #F9D423 100%);
+      color: #000;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 18px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .luxury-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+    }
+
+    .luxury-btn span {
+      display: inline-block;
+      margin-left: 10px;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive adjustments for luxury section */
+    @media (max-width: 768px) {
+      .luxury-header h3 {
+        font-size: 32px;
+      }
+      
+      .luxury-header p {
+        font-size: 14px;
+      }
+      
+      .luxury-grid {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .luxury-card {
+        width: 100%;
+      }
+    }
+
+    /* Pricing Table */
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+    }
+
+    .pricing-table th, 
+    .pricing-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-table th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+
+    .pricing-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .our-price {
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .savings {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    /* Responsive table */
+    @media (max-width: 768px) {
+      .pricing-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+
+    /* Glow hover effect */
+    .glow-hover {
+      transition: var(--transition);
+    }
+
+    .glow-hover:hover {
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">SG</div>
+          <h1>Swift Graphics</h1>
+        </div>
+        
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <div class="menu">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#industries">Industries</a>
+          <a href="#about">About</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact" class="cta">Get a Quote</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container grid two" style="align-items:center;">
+      <div>
+        <span class="badge">Invest Once. Impress Forever.</span>
+        <h2>Helping Businesses Stand Out Through Bold and Beautiful Design.</h2>
+        <p>Swift Graphics is a creative design agency dedicated to crafting visually stunning, strategically driven designs that help businesses stand out. From captivating catalogs and trend books to persuasive marketing materials, we blend artistry with precision to deliver results that inspire, engage, and convert.</p>
+        <div class="actions">
+          <a class="btn primary" href="#contact">Start a Project</a>
+          <a class="btn" href="#portfolio">See Recent Work</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="grid two">
+          <div class="hero-card">
+            <div class="pill">Catalog Cover</div>
+            <img src="catalog cover.jpg" alt="Catalog design" style="width:100%; border-radius:12px;"/>
+          </div>
+          <div class="hero-card">
+            <div class="pill">Magazine Spread</div>
+            <img src="magazine spread.jpg" alt="Magazine layout design" style="width:100%; border-radius:12px;"/>
+          </div>
+          <div class="hero-card">
+            <div class="pill">Brochures</div>
+            <img src="brochures.jpg" alt="Brochure design" style="width:100%; border-radius:12px;"/>
+          </div>
+          <div class="hero-card">
+            <div class="pill">Social Media Posts</div>
+            <img src="CARPET-POST.jpg" alt="Social media post design" style="width:100%; border-radius:12px;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-title">
+        <h3>Our Design Services</h3>
+        <p>Comprehensive solutions for all your visual needs</p>
+      </div>
+      <div class="grid four">
+        <div class="card service-card glow-hover">
+          <h4>Catalogs</h4>
+          <p>A catalog is more than pages — it's your brand's sales engine. The right design showcases products with impact, builds trust, and drives buying decisions.</p>
+          <div class="footer">
+            <span class="chip">Product Display</span>
+            <span class="chip">Organized Layouts</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Lookbooks</h4>
+          <p>A lookbook is your collection's story told through visuals that sell. We design lookbooks that capture style, emotion, and brand identity.</p>
+          <div class="footer">
+            <span class="chip">Lifestyle Imagery</span>
+            <span class="chip">Brand Storytelling</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Trendbooks</h4>
+          <p>A trendbook is your brand's showcase of what's in style right now — and what your customers should want next.</p>
+          <div class="footer">
+            <span class="chip">Color Trends</span>
+            <span class="chip">Spotlight</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Guide Books</h4>
+          <p>A guide book transforms detailed product knowledge into clear, engaging visuals your customers can understand and trust.</p>
+          <div class="footer">
+            <span class="chip">Instructional Design</span>
+            <span class="chip">Visual Steps</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Brochures & Flyers</h4>
+          <p>Brochures and flyers are your brand's instant impression — printable, stylish, and perfect for coffee-table display.</p>
+          <div class="footer">
+            <span class="chip">Single/Double Page</span>
+            <span class="chip">Highly Impactful</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Magazines & Editorial</h4>
+          <p>Magazines and editorial layouts transform your content into a premium experience that engages, informs, and captivates readers.</p>
+          <div class="footer">
+            <span class="chip">Article Layouts</span>
+            <span class="chip">Feature Spreads</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Event Collateral</h4>
+          <p>Event collateral turns every touchpoint into a brand experience that captivates attendees and makes your events memorable.</p>
+          <div class="footer">
+            <span class="chip">Invites</span>
+            <span class="chip">Banners</span>
+            <span class="chip">Menus</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Social Media Posts</h4>
+          <p>Social media posts are your brand's daily impression — quick, impactful, and shareable visuals that drive engagement.</p>
+          <div class="footer">
+            <span class="chip">Platform Optimized</span>
+            <span class="chip">Engagement Focused</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>E-commerce Imagery</h4>
+          <p>E-commerce imagery is your online storefront — the first thing customers see, and often the last hurdle before purchase.</p>
+          <div class="footer">
+            <span class="chip">Product Focus</span>
+            <span class="chip">Conversion Driven</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Website Visuals</h4>
+          <p>Your website is your brand's 24/7 showcase — we design visuals that capture attention and communicate value.</p>
+          <div class="footer">
+            <span class="chip">Banners</span>
+            <span class="chip">Sliders</span>
+            <span class="chip">Promo Graphics</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Infographics</h4>
+          <p>Infographics turn complex information into clear, engaging visuals your audience can instantly understand.</p>
+          <div class="footer">
+            <span class="chip">Data Visualization</span>
+            <span class="chip">Process Flows</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Photo Editing</h4>
+          <p>Photo editing transforms ordinary images into brand-defining visuals that look polished and professional.</p>
+          <div class="footer">
+            <span class="chip">Retouching</span>
+            <span class="chip">Color Correction</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Artisan Story Boards</h4>
+          <p>Artisan story boards bring the journey behind your products to life, connecting customers emotionally.</p>
+          <div class="footer">
+            <span class="chip">Process Visuals</span>
+            <span class="chip">Craft Storytelling</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Export Presentation Kits</h4>
+          <p>Export presentation kits make your brand irresistible to international buyers with polished, professional visuals.</p>
+          <div class="footer">
+            <span class="chip">Multi-Language</span>
+            <span class="chip">Brand Consistent</span>
+          </div>
+        </div>
+        <div class="card service-card glow-hover">
+          <h4>Carpet Rendering & Mockups</h4>
+          <p>We turn carpets into lifestyle experiences with realistic room renderings and mockups that boost confidence and drive sales.</p>
+          <div class="footer">
+            <span class="chip">Room Settings</span>
+            <span class="chip">High-Res Output</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-title">
+        <h3>Recent Work</h3>
+        <p>Examples of our design excellence</p>
+      </div>
+      <div class="grid three portfolio">
+        <a class="item" href="p1.jpg" target="_blank" rel="noopener">
+          <img alt="Social media post" src="p1.jpg" />
+        </a>
+        <a class="item" href="p2.jpg" target="_blank" rel="noopener">
+          <img alt="Social media post" src="p2.jpg" />
+        </a>
+        <a class="item" href="p3.jpg" target="_blank" rel="noopener">
+          <img alt="Social media post" src="p3.jpg" />
+        </a>
+        <a class="item" href="p4.jpg" target="_blank" rel="noopener">
+          <img alt="Room-set mockup" src="p4.jpg" />
+        </a>
+        <a class="item" href="p5.jpg" target="_blank" rel="noopener">
+          <img alt="Guideline page" src="p5.jpg" />
+        </a>
+        <a class="item" href="p6.jpg" target="_blank" rel="noopener">
+          <img alt="Typography layout" src="p6.jpg" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section id="industries">
+    <div class="container">
+      <div class="section-title">
+        <h3>Industries We Serve</h3>
+        <p>We adapt our design approach to your industry needs</p>
+      </div>
+      <div class="grid three">
+        <div class="card glow-hover">
+          <h4>Home & Interior Decor</h4>
+          <p class="muted">Showcase your products in beautiful settings that inspire customers.</p>
+          <div class="hr"></div>
+        </div>
+        <div class="card glow-hover">
+          <h4>Fashion & Apparel</h4>
+          <p class="muted">Highlight style, texture and craftsmanship with elegant layouts.</p>
+          <div class="hr"></div>
+        </div>
+        <div class="card glow-hover">
+          <h4>Real Estate & Architecture</h4>
+          <p class="muted">Present properties and designs with clarity and sophistication.</p>
+          <div class="hr"></div>
+        </div>
+        <div class="card glow-hover">
+          <h4>Tech Startups</h4>
+          <p class="muted">Communicate complex ideas with clean, modern design.</p>
+          <div class="hr"></div>
+        </div>
+        <div class="card glow-hover">
+          <h4>E-commerce Brands</h4>
+          <p class="muted">Create visuals that convert browsers into buyers.</p>
+          <div class="hr"></div>
+        </div>
+        <div class="card glow-hover">
+          <h4>Luxury Product Startups</h4>
+          <p class="muted">Elevate your brand with premium design that commands attention.</p>
+          <div class="hr"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Process -->
+  <section id="about">
+    <div class="container grid two">
+      <div>
+        <div class="section-title">
+          <h3>About Swift Graphics</h3>
+          <p>Our approach to creating exceptional designs</p>
+        </div>
+        <p>We don't just create designs — we ignite desire and drive action. Every page, every layout, every visual is carefully crafted to grab attention, spark curiosity, and make your audience take notice. From eye-catching catalogs and lookbooks to immersive brand experiences, we turn ideas into visuals your customers can't resist — and can't forget.</p>
+        <div class="timeline" style="margin-top:24px;">
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h4>Discovery & Scope</h4>
+            <p class="muted">We align on goals, target audience, page counts, sizes, and deliverables.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h4>Wireframe & Copy Flow</h4>
+            <p class="muted">We map information hierarchy, grids, and rhythm to keep readers engaged.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h4>Design & Iteration</h4>
+            <p class="muted">Two rounds of refinements included—feedback welcomed and integrated fast.</p>
+          </div>
+          <div class="step">
+            <div class="dot" aria-hidden="true"></div>
+            <h4>Export & Handover</h4>
+            <p class="muted">Press-ready PDFs (CMYK) + packaged source files on request.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="masonry">
+          <img src="asg1.jpg" alt="Social media post"/>
+          <img src="asg4.jpg" alt="Social media post"/>
+          <img src="asg3.jpg" alt="Design layout"/>
+          <img src="asg2.jpg" alt="Design layout"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h3>Transparent Pricing</h3>
+        <p>Compare our affordable rates with metropolitan agencies</p>
+      </div>
+      
+      <div class="card">
+        <div style="overflow-x: auto;">
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th style="min-width:200px;">Services</th>
+                <th style="text-align:center;">Our Price</th>
+                <th style="text-align:center;">Metro Agencies</th>
+                <th style="text-align:center;">You Save</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Catalogs & Lookbooks</td>
+                <td class="our-price" style="text-align:center;">₹499/page</td>
+                <td style="text-align:center; color:var(--muted);">₹1,200-1,800/page</td>
+                <td class="savings" style="text-align:center;">60-70%</td>
+              </tr>
+              <tr>
+                <td>Trend Books & Guide Books</td>
+                <td class="our-price" style="text-align:center;">₹799/page</td>
+                <td style="text-align:center; color:var(--muted);">₹1,500-2,000/page</td>
+                <td class="savings" style="text-align:center;">65-75%</td>
+              </tr>
+              <tr>
+                <td>Magazines & Editorial Layouts</td>
+                <td class="our-price" style="text-align:center;">₹499/page</td>
+                <td style="text-align:center; color:var(--muted);">₹1,800-2,500/page</td>
+                <td class="savings" style="text-align:center;">70-80%</td>
+              </tr>
+              <tr>
+                <td>Brochures & Flyers</td>
+                <td class="our-price" style="text-align:center;">₹699/page</td>
+                <td style="text-align:center; color:var(--muted);">₹1,500-2,200/page</td>
+                <td class="savings" style="text-align:center;">50-70%</td>
+              </tr>
+              <tr>
+                <td>Event Collateral</td>
+                <td class="our-price" style="text-align:center;">₹699/item</td>
+                <td style="text-align:center; color:var(--muted);">₹1,200-2,000/item</td>
+                <td class="savings" style="text-align:center;">40-65%</td>
+              </tr>
+              <tr>
+                <td>Social Media Posts</td>
+                <td class="our-price" style="text-align:center;">₹599/post</td>
+                <td style="text-align:center; color:var(--muted);">₹1,000-1,800/post</td>
+                <td class="savings" style="text-align:center;">40-65%</td>
+              </tr>
+              <tr>
+                <td>E-commerce Imagery</td>
+                <td class="our-price" style="text-align:center;">₹459/image</td>
+                <td style="text-align:center; color:var(--muted);">₹800-1,500/image</td>
+                <td class="savings" style="text-align:center;">40-70%</td>
+              </tr>
+              <tr>
+                <td>Infographics</td>
+                <td class="our-price" style="text-align:center;">₹999/page</td>
+                <td style="text-align:center; color:var(--muted);">₹2,500-4,000/page</td>
+                <td class="savings" style="text-align:center;">60-75%</td>
+              </tr>
+              <tr>
+                <td>Photo Editing</td>
+                <td class="our-price" style="text-align:center;">₹299/photo</td>
+                <td style="text-align:center; color:var(--muted);">₹600-1,200/photo</td>
+                <td class="savings" style="text-align:center;">50-75%</td>
+              </tr>
+              <tr>
+                <td>Artisan Story Boards</td>
+                <td class="our-price" style="text-align:center;">₹699/page</td>
+                <td style="text-align:center; color:var(--muted);">₹1,500-2,500/page</td>
+                <td class="savings" style="text-align:center;">50-70%</td>
+              </tr>
+              <tr>
+                <td>Export Presentation Kits</td>
+                <td class="our-price" style="text-align:center;">₹999/page</td>
+                <td style="text-align:center; color:var(--muted);">₹2,500-4,500/page</td>
+                <td class="savings" style="text-align:center;">60-80%</td>
+              </tr>
+              <tr>
+                <td>Carpet Rendering & Mockups</td>
+                <td class="our-price" style="text-align:center;">₹499/photo</td>
+                <td style="text-align:center; color:var(--muted);">₹1,200-2,000/photo</td>
+                <td class="savings" style="text-align:center;">60-75%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="grid three" style="margin-top:32px;">
+        <div class="card">
+          <h4>What's Always Included</h4>
+          <ul style="list-style-type: none; padding-left: 0;">
+            <li class="check">✓ 2 rounds of expert revisions for a flawless finish</li>
+            <li class="check">✓ Print-ready CMYK files for perfect color output</li>
+            <li class="check">✓ Source files on request for full ownership</li>
+            <li class="check">✓ Timeline based on project scale — ensuring quality without compromise</li>
+          </ul>
+        </div>
+        <div class="card" style="border:2px solid #c7d2fe;">
+          <h4>Built-In Value</h4>
+          <ul style="list-style-type: none; padding-left: 0;">
+            <li class="check">✓ Strategic design thinking behind every layout</li>
+            <li class="check">✓ Industry-standard tools & assets</li>
+            <li class="check">✓ Accurate color calibration for both print & digital</li>
+            <li class="check">✓ Complimentary layout polish & detailing</li>
+            <li class="check">✓ Custom quotes for large projects</li>
+          </ul>
+          <a class="btn primary" href="#contact" style="margin-top:16px; width:100%; text-align:center;">Request Custom Quote</a>
+        </div>
+        <div class="card">
+          <h4>Why Our Pricing?</h4>
+          <ul style="list-style-type: none; padding-left: 0;">
+            <li class="check">✓ Same quality as metro agencies</li>
+            <li class="check">✓ Transparent, all-inclusive pricing — no hidden fees</li>
+            <li class="check">✓ Designs that enhance your brand's perceived value</li>
+            <li class="check">✓ Attention to detail that keeps your audience engaged</li>
+            <li class="check">✓ Experience across multiple industries & formats</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Extended Portfolio Rows -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h3>More Work</h3>
+        <p>Additional examples of our design capabilities</p>
+      </div>
+      <div class="grid three portfolio">
+        <a class="item" href="more work 3.jpg" target="_blank" rel="noopener">
+          <img alt="Layout 1" src="more work 3.jpg" />
+        </a>
+        <a class="item" href="more work 2.jpg" target="_blank" rel="noopener">
+          <img alt="Layout 2" src="more work 2.jpg" />
+        </a>
+        <a class="item" href="more work 1.jpg" target="_blank" rel="noopener">
+          <img alt="Layout 3" src="more work 1.jpg" />
+        </a>
+        <a class="item" href="more work 4.jpg" target="_blank" rel="noopener">
+          <img alt="Workspace" src="more work 4.jpg" />
+        </a>
+        <a class="item" href="more work 5.jpg" target="_blank" rel="noopener">
+          <img alt="Palette" src="more work 5.jpg" />
+        </a>
+        <a class="item" href="more work 6.jpg" target="_blank" rel="noopener">
+          <img alt="Print" src="more work 6.jpg" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title">
+        <h3>Frequently Asked Questions</h3>
+        <p>Common questions about our services</p>
+      </div>
+      <div class="grid two">
+        <details>
+          <summary>Do you provide print-ready files?</summary>
+          <p>Yes. All exports are CMYK with correct bleed and margins. We can also package source files if needed.</p>
+        </details>
+        <details>
+          <summary>What apps do you use?</summary>
+          <p>Adobe Photoshop and CorelDRAW for layout, image prep, and final exports. We follow prepress best practices.</p>
+        </details>
+        <details>
+          <summary>How many revisions are included?</summary>
+          <p>Two rounds are included on most projects. Additional iterations are available at a simple hourly rate.</p>
+        </details>
+        <details>
+          <summary>Can you add my product photos and copy?</summary>
+          <p>Absolutely. Share assets via Drive or WeTransfer and we'll integrate them into the layout.</p>
+        </details>
+        <details>
+          <summary>Can you match our brand guidelines exactly?</summary>
+          <p>Yes. Share typography, colors, spacing, and any do/don't rules. We'll build master styles from them.</p>
+        </details>
+        <details>
+          <summary>Do you support multi-language layouts?</summary>
+          <p>We recommend language-aware styles and flexible text frames. We've shipped English + Arabic and English + Hindi editions.</p>
+        </details>
+        <details>
+          <summary>What's your revision workflow?</summary>
+          <p>We use PDF comments or shared boards for markup. Each round is tracked so stakeholders see changes clearly.</p>
+        </details>
+        <details>
+          <summary>Do you provide source files?</summary>
+          <p>On request, yes. We package fonts (if licensing allows), links, and assets with clear folder structure.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms -->
+  <section id="resources">
+    <div class="container">
+      <div class="section-title">
+        <h3>Terms & Policies</h3>
+        <p>Important information about working with us</p>
+      </div>
+
+      <div class="grid three">
+        <div class="card">
+          <h4>Payment Policy</h4>
+          <p class="muted">A 10% down payment is required to start your project. The remaining 90% is due upon completion before final delivery.</p>
+        </div>
+        <div class="card">
+          <h4>Privacy & Data Use</h4>
+          <p class="muted">We value your privacy. Personal information collected is used solely to enhance your experience and deliver services.</p>
+        </div>
+        <div class="card">
+          <h4>Print-Ready Files Only</h4>
+          <p class="muted">We do not handle printing. You will need to take care of printing yourself, as all our outputs are digital only.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Perks -->
+  <section id="design-perks">  
+    <div class="container">
+      <div class="section-title">
+        <h3>Your Design, Perfected</h3>
+        <p>We bake elite-quality standards into every pixel—so your brand always looks razor-sharp.</p>
+      </div>
+      <div class="grid three">
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">🎨</div>
+          <h4>Pixel-Perfect Consistency</h4>
+          <p>Master styles & templates that keep your brand unmistakably *you*.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">✂️</div>
+          <h4>Flawless Print Prep</h4>
+          <p>Bleed, crop marks, and color profiles handled—so prints never disappoint.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">⚡</div>
+          <h4>Zero-Friction Files</h4>
+          <p>Organized layers, labeled assets, and editable sources for hassle-free updates.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">♿</div>
+          <h4>Inclusive by Design</h4>
+          <p>Contrast-checked, caption-ready designs that welcome every audience.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">📊</div>
+          <h4>Data That Speaks</h4>
+          <p>Charts and tables styled for impact, not confusion.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">🔀</div>
+          <h4>Revision Zen</h4>
+          <p>Tracked changes and versioned proofs—no more "final_final_v3".</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">🖼️</div>
+          <h4>Icon Toolkit</h4>
+          <p>Custom vector icons that scale infinitely without blur.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">🌈</div>
+          <h4>Color Science</h4>
+          <p>Pantone-matched hues and CMYK-safe palettes that pop.</p>
+        </div>
+        <div class="card glow-hover">
+          <div style="font-size:32px; margin-bottom:12px;">🔮</div>
+          <h4>Design Legacy</h4>
+          <p>Documented systems so your team (or future designers) can replicate success.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Luxury Infographic Section -->
+  <section class="luxury-section">
+    <div class="luxury-container">
+      <div class="luxury-header">
+        <h3><span>The DNA of Iconic Design</span></h3>
+        <p>How we design visuals that command 10x more attention</p>
+      </div>
+      
+      <div class="luxury-grid">
+        <div class="luxury-card">
+          <div class="luxury-icon">✨</div>
+          <h4>Precision in Every Pixel</h4>
+          <p>Where art meets exactitude — every curve, color, and composition is engineered to perfection for timeless visual impact.</p>
+        </div>
+        
+        <div class="luxury-card">
+          <div style="display: flex; justify-content: center; gap: 20px; margin: 0 auto 20px;">
+            <span style="font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #fff;">Aa</span>
+            <span style="font-family: 'Helvetica Neue', sans-serif; font-size: 40px; font-weight: 300; color: #D4AF37;">Aa</span>
+          </div>
+          <h4>Stories Woven into Style</h4>
+          <p>Designs that speak beyond aesthetics, blending creativity and meaning to leave a lasting emotional impression.</p>
+        </div>
+        
+        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; padding: 0 40px;">
+          <div style="background: rgba(255,255,255,0.03); border-left: 3px solid #D4AF37; padding: 25px; position: relative;">
+            <span style="font-size: 32px; font-weight: 700; color: #D4AF37;">90%</span>
+            <p style="font-size: 16px; margin: 10px 0 0; text-transform: uppercase; letter-spacing: 1px;">Faster brand recognition</p>
+            <div style="height: 3px; background: repeating-linear-gradient(90deg, #D4AF37, #D4AF37 2px, #000 2px, #000 4px); margin-top: 15px;"></div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.03); border-left: 3px solid #D4AF37; padding: 25px; position: relative; margin-left: 30px;">
+            <span style="font-size: 32px; font-weight: 700; color: #D4AF37;">10x</span>
+            <p style="font-size: 16px; margin: 10px 0 0; text-transform: uppercase; letter-spacing: 1px;">Higher perceived value</p>
+            <div style="height: 3px; background: repeating-linear-gradient(90deg, #D4AF37, #D4AF37 2px, #000 2px, #000 4px); margin-top: 15px;"></div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.03); border-left: 3px solid #D4AF37; padding: 25px; position: relative; margin-left: 60px;">
+            <span style="font-size: 32px; font-weight: 700; color: #D4AF37;">0%</span>
+            <p style="font-size: 16px; margin: 10px 0 0; text-transform: uppercase; letter-spacing: 1px;">Chance of blending in</p>
+            <div style="height: 3px; background: repeating-linear-gradient(90deg, #D4AF37, #D4AF37 2px, #000 2px, #000 4px); margin-top: 15px;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="luxury-cta">
+        <p>Your brand deserves this alchemy</p>
+        <a href="#contact" class="luxury-btn">
+          Begin Your Masterpiece
+          <span style="display: inline-block; margin-left: 10px; width: 16px; height: 16px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h3>Ready to Elevate Your Brand?</h3>
+        <p>Contact us directly to discuss your project</p>
+      </div>
+      
+      <div class="grid three" style="align-items: center;">
+        <div class="card" style="text-align: center; padding: 40px 20px;">
+          <div style="font-size: 48px; margin-bottom: 20px;">📧</div>
+          <h4>Email Us</h4>
+          <p style="margin: 10px 0 20px;">For project inquiries and quotes</p>
+          <a href="mailto:swiftgraphics0@gmail.com" class="btn" style="display: inline-block; width:100%; max-width:300px;">
+            swiftgraphics0@gmail.com
+          </a>
+        </div>
+        
+        <div class="card" style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: white;">
+          <div style="font-size: 48px; margin-bottom: 20px;">📱</div>
+          <h4>Call/WhatsApp</h4>
+          <p style="margin: 10px 0 20px;">For immediate assistance</p>
+          <a href="tel:+919235193449" class="btn" style="display: inline-block; background: white; color: var(--brand); width:100%; max-width:300px;">
+            +91 9235193449
+          </a>
+        </div>
+        
+        <div class="card" style="text-align: center; padding: 40px 20px;">
+          <div style="font-size: 48px; margin-bottom: 20px;">📍</div>
+          <h4>Our Location</h4>
+          <p style="margin: 10px 0 20px;">Based in India (IST Timezone)</p>
+          <div style="background: #f8fafc; padding: 12px 24px; border-radius: 50px; font-weight: 600; color: var(--muted);">
+            Available for international clients
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 40px;">
+        <p style="font-size: 14px; color: var(--muted);">
+          Typically respond within 2-4 business hours
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container grid two">
+      <div>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">SG</div>
+          <h1>Swift Graphics</h1>
+        </div>
+        <p class="muted">Design for brands that value clarity and craft.</p>
+      </div>
+      <div class="grid two">
+        <div>
+          <p><strong>Quick Links</strong></p>
+          <p><a href="#services">Services</a> · <a href="#portfolio">Portfolio</a> · <a href="#pricing">Pricing</a> · <a href="#faq">FAQ</a></p>
+        </div>
+        <div>
+          <p><strong>Contact</strong></p>
+          <p class="muted">Email: swiftgraphics0@gmail.com<br/>Phone: +91 9235193449<br/>
+            Location: India (IST)</p>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="margin-top:40px; padding-top:20px; border-top:1px solid var(--border);">
+      <p class="muted" style="text-align:center; font-size:14px;">© 2023 Swift Graphics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button id="toTop" aria-label="Scroll to top" title="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      menu.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        menu.classList.remove('active');
+      });
+    });
+
+    // Reveal scroll-to-top after some scroll
+    const toTop = document.getElementById('toTop');
+    const toggleTop = () => {
+      if (window.scrollY > 400) toTop.classList.add('show'); 
+      else toTop.classList.remove('show');
+    };
+    
+    window.addEventListener('scroll', toggleTop);
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Intersection reveal animations (subtle)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.animate([
+            { opacity: 0, transform: 'translateY(8px)' },
+            { opacity: 1, transform: 'translateY(0)' }
+          ], { 
+            duration: 500, 
+            easing: 'ease-out', 
+            fill: 'forwards' 
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: .1 });
+
+    document.querySelectorAll('section .card, section .item, .step, .hero-card')
+      .forEach(el => io.observe(el));
+
+    // Smooth active menu highlight on click (no hash jump)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if(id.length > 1){
+          e.preventDefault();
+          document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, '', id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
